@@ -12,6 +12,6 @@ $confirm({img: "https://windows-q12.github.io/logo32.png", baseClass: "ui_alert"
 		btns.remove()
 		setTimeout(winInst.close, 5000)
 	}, onclose: function() {
-		console.log("insert reload") // location.reload()
+		location.reload()
 	}}, $noop)
 })
