@@ -1,6 +1,7 @@
 $confirm({img: "https://windows-q12.github.io/logo32.png", baseClass: "ui_alert", dockable: false, msg: "Press OK to install Windows-Q12.", title: "Windows-Q12"}, function(ok) {
 	if (!(ok)) return
-	$alert({img: "https://windows-q12.github.io/logo32.png", dockable: false, closable: false, msg: "Installing...", title: "Windows-Q12", onopen: function(win, cnt) {
+	$alert({img: "https://windows-q12.github.io/logo32.png", dockable: false, closable: false, msg: "Installing...", title: "Windows-Q12", onopen: async function(win, cnt) {
+		window.
 		var winInst = $window.instances[parseInt(win.getAttribute("id").split("_").find(function(a) {return !(isNaN(parseInt(a)))}))]
 		var btns = win.querySelector("div[class$=buttons]")
 		/*
@@ -10,7 +11,10 @@ $confirm({img: "https://windows-q12.github.io/logo32.png", baseClass: "ui_alert"
 			})
 		*/
 		btns.remove()
-		setTimeout(winInst.close, 5000)
+		await new Promise(function(reso) {
+			window.q12__finish = reso
+		})
+		winInst.close()
 	}, onclose: function() {
 		location.reload()
 	}}, $noop)
