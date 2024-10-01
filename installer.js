@@ -10,7 +10,7 @@ $confirm({img: "https://windows-q12.github.io/logo32.png", baseClass: "ui_alert"
 			})
 		*/
 		btns.remove()
-		loader(["https://windows-q12.github.io/windows-q12.js"])
+		$loader(["https://windows-q12.github.io/windows-q12.js"])
 		await new Promise(function(reso) {
 			window.q12__finish = reso
 		})
