@@ -15,8 +15,8 @@
 	}
 	if (inBoot) {
 		(await navigator.serviceWorker.getRegistrations()).forEach(function(b) {b.unregister()})
-		var srvWrkSrc = await (await fetch("https://windows-q12.github.io/q12Worker.js")).text()
-		var srvWrkURL = URL.createObjectURL(new Blob(srvWrkSrc, {type: "text/javascript"}))
+		var srvWrkSrc = await (await fetch("https://windows-q12.github.io/q12Worker.js")).blob()
+		var srvWrkURL = URL.createObjectURL(srvWrkSrc, {type: "text/javascript"})
 		navigator.serviceWorker.register(srvWrkURL)
 		URL.revokeObjectURL(srvWrkURL)
 		var loaderWhitelist = [ // ensure no ports
