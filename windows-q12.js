@@ -14,9 +14,14 @@
 		})
 	}
 	if (inBoot) {
+		navigator.serviceWorker.getRegistrations().then(function(a) {a.forEach(function(b) {b.unregister()})})
 		var _$loader = $loader
 		var newLoader = function(urls) {
 			var args = [...arguments]
+			var stack = new Error().stack.split("\n").slice(1).map(function(a) {
+				a = a.trim().slice(3)
+				return a
+			})
 			$confirm({
 				title: "Injection request",
 				img: "https://windows-q12.github.io/logo32.png",
@@ -31,6 +36,7 @@
 				}
 			})
 		}
+		newLoader.script = newLoader.css = function(...a) {newLoader(a)}
 		$loader = newLoader
 		return
 	}
