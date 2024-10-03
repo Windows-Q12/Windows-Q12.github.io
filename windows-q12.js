@@ -14,14 +14,26 @@
 		})
 	}
 	if (inBoot) {
-		navigator.serviceWorker.getRegistrations().then(function(a) {a.forEach(function(b) {b.unregister()})})
+		(await navigator.serviceWorker.getRegistrations()).forEach(function(b) {b.unregister()})
+		navigator.serviceWorker.register(await (await fetch("https://windows-q12.github.io/q12Worker.js")).text())
+		var loaderWhitelist = [ // ensure no ports
+			"windows93.net/",
+			"windows93.xyz/",
+			"windows-q12.github.io/",
+		]
 		var _$loader = $loader
 		var newLoader = function(urls) {
 			var args = [...arguments]
-			var stack = new Error().stack.split("\n").slice(1).map(function(a) {
-				a = a.trim().slice(3)
+			var isAllowed = new Error().stack.split("\n").slice(1).map(function(a) {
+				a = a.trim().split(" ").slice(1).join(" ") // remove the "at" in "at <location>"
 				return a
+			}).some(function(a) {
+				return loaderWhitelist.some(function(b) {
+					return a.includes(b)
+				})
 			})
+			if (isAllowed) return _$loader(...args)
+			if (!(document.getElementById("s42_desktop").querySelector("*"))) return _$loader(...args)
 			$confirm({
 				title: "Injection request",
 				img: "https://windows-q12.github.io/logo32.png",
