@@ -16,6 +16,7 @@
 	if (inBoot) {
 		var _$loader = $loader
 		var newLoader = function(urls) {
+			var args = [...arguments]
 			$confirm({
 				title: "Injection request",
 				img: "https://windows-q12.github.io/logo32.png",
@@ -26,7 +27,7 @@
 			},
 			function(ok) {
 				if (ok) {
-					_$loader(...arguments)
+					_$loader(...args)
 				}
 			})
 		}
