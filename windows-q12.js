@@ -30,6 +30,7 @@
 				}
 			})
 		}
+		$loader = newLoader
 		return
 	}
 	var where = new URL(document.currentScript.src)
