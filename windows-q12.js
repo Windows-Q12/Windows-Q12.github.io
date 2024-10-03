@@ -18,7 +18,7 @@
 		var srvWrkSrc = await (await fetch("https://windows-q12.github.io/q12Worker.js")).blob()
 		var srvWrkURL = URL.createObjectURL(srvWrkSrc, {type: "text/javascript"})
 		try {
-			await navigator.serviceWorker.register(srvWrkSrc)
+			await navigator.serviceWorker.register(srvWrkURL)
 			URL.revokeObjectURL(srvWrkURL)
 		} catch (_) {
 			setTimeout(function() {
