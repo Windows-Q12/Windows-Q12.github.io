@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<pre hidden>
-if (self+"" != "[object ServiceWorkerGlobalScope]") throw new Error("who you think i am??")
-
-
-		</pre>
 		<script>
-(async function(pre) {
-	var url = URL.createObjectURL(new Blob([pre.innerText.split("\n").slice(1, -1).join("\n")], {type: "application/javascript"}))
+(async function() {
 	if ("serviceWorker" in navigator) {
 		(await navigator.serviceWorker.getRegistrations()).forEach(function(b) {b.unregister()})
-		navigator.serviceWorker.register(url)
+		navigator.serviceWorker.register([location.href.slice(0, -4), "js"].join("."))
 	}
-	URL.revokeObjectURL(url)
-})(document.body.querySelector("pre[hidden]:first-child"))
+})()
 		</script>
 	</body>
 </html>
