@@ -2,5 +2,5 @@ if (self+"" != "[object ServiceWorkerGlobalScope]") throw new Error("who you thi
 console.log("im runnig!!")
 
 self.addEventListener("fetch", function(e) {
-	console.log(e)
+	console.log(e.request.url)
 })

@@ -4,7 +4,7 @@
 		<script>
 (async function() {
 	if ("serviceWorker" in navigator) {
-		(await navigator.serviceWorker.getRegistrations()).forEach(function(b) {b.unregister()})
+		if (1) (await navigator.serviceWorker.getRegistrations()).forEach(function(b) {b.unregister()}) // 1 is true
 		navigator.serviceWorker.register([location.href.slice(0, -5), "js"].join("."))
 	}
 })()
