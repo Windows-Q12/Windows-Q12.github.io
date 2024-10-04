@@ -15,12 +15,11 @@
 	}
 	if (inBoot) {
 		console.log("Ran from bootup")
-		void(await navigator.serviceWorker.getRegistrations()).forEach(function(b) {b.unregister()})
-		var srvWrkSrc = await (await fetch("https://windows-q12.github.io/q12Worker.js")).blob()
-		var srvWrkURL = URL.createObjectURL(srvWrkSrc, {type: "text/javascript"})
-		setTimeout(function() {
-			navigator.serviceWorker.register(srvWrkURL)
-			URL.revokeObjectURL(srvWrkURL)
+		var worker = $window("https://windows-q12.github.io/q12Worker.html")
+		// worker.el.base.style.display = "none"
+		worker.changeSize({width: 1, height: 1})
+		Object.entries({top: "height", left: "width"}).forEach(function([a, b]) {
+			worker.el.base.style[a] = "-" + worker.el.base.style[b]
 		})
 		var loaderWhitelist = {
 			stack: [
