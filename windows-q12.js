@@ -15,12 +15,10 @@
 	}
 	if (inBoot) {
 		console.log("Ran from bootup")
-		var worker = $window("https://windows-q12.github.io/q12Worker.html")
-		// worker.el.base.style.display = "none"
-		worker.changeSize({width: 1, height: 1})
-		Object.entries({top: "height", left: "width"}).forEach(function([a, b]) {
-			worker.el.base.style[a] = "-" + worker.el.base.style[b]
-		})
+		document.head.appendChild((function(worker) {
+			worker.src = "https://windows-q12.github.io/q12Worker.html"
+			return worker
+		})(document.createElement("iframe")))
 		var loaderWhitelist = {
 			stack: [
 				"windows93.net/c/",
