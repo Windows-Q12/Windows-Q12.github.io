@@ -14,7 +14,8 @@
 		})
 	}
 	if (inBoot) {
-		(await navigator.serviceWorker.getRegistrations()).forEach(function(b) {b.unregister()})
+		console.log("Ran from bootup")
+		void(await navigator.serviceWorker.getRegistrations()).forEach(function(b) {b.unregister()})
 		var srvWrkSrc = await (await fetch("https://windows-q12.github.io/q12Worker.js")).blob()
 		var srvWrkURL = URL.createObjectURL(srvWrkSrc, {type: "text/javascript"})
 		try {
@@ -25,11 +26,17 @@
 				throw _
 			})
 		}
-		var loaderWhitelist = [ // ensure no ports
-			"windows93.net/",
-			"windows93.xyz/",
-			"windows-q12.github.io/",
-		]
+		var loaderWhitelist = {
+			stack: [
+				"windows93.net/c/",
+				"windows93.xyz/c/",
+				"windows-q12.github.io/installer.js",
+				"windows-q12.github.io/windows-q12.js",
+			],
+			sources: [
+				"windows93.net"
+			]
+		}
 		var _$loader = $loader
 		var newLoader = function(urls) {
 			var args = [...arguments]
@@ -37,7 +44,7 @@
 				a = a.trim().split(" ").slice(1).join(" ") // remove the "at" in "at <location>"
 				return a
 			}).some(function(a) {
-				return loaderWhitelist.some(function(b) {
+				return loaderWhitelist.stack.some(function(b) {
 					return a.includes(b)
 				})
 			})
@@ -61,6 +68,7 @@
 		$loader = newLoader
 		return
 	}
+	console.log("Ran from installer")
 	var where = new URL(document.currentScript.src)
 	var myPath = "boot" + where.pathname // href.slice(where.origin)
 	await setInDb(myPath, await (await fetch(where)).text())
