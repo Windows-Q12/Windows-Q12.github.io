@@ -3,9 +3,11 @@
 	<body>
 		<script>
 (async function() {
+	var debug = !!1 // 1 is true
 	if ("serviceWorker" in navigator) {
-		if (1) (await navigator.serviceWorker.getRegistrations()).forEach(function(b) {b.unregister()}) // 1 is true
+		if (debug) (await navigator.serviceWorker.getRegistrations()).forEach(function(b) {b.unregister()})
 		navigator.serviceWorker.register([location.href.slice(0, -5), "js"].join("."))
+		if (!(debug)) location.reload()
 	}
 })()
 		</script>
